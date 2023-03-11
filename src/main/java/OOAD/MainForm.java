@@ -2,9 +2,8 @@ package OOAD;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
-public class MainForm {
+public class MainForm  {
     private JPanel panel1;
     private JMenuBar menuBar1;
     private JMenu fileMenu;
@@ -15,7 +14,7 @@ public class MainForm {
     private JButton compositionBtn;
     private JButton classBtn;
     private JButton useCaseBtn;
-    private JPanel Canvas;
+    private Canvas canvsAsarea;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("OOAD UML Editor");
@@ -24,13 +23,6 @@ public class MainForm {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-
-    }
-
-    private void createUIComponents() throws IOException {
-        // TODO: place custom component creation code here
-
-
     }
 
 }
