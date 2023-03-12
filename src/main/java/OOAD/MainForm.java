@@ -2,10 +2,7 @@ package OOAD;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class MainForm  {
     private JPanel panel1;
@@ -24,17 +21,22 @@ public class MainForm  {
         useCaseBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                canvasArea.paintList.add(new BlueSquare(61,61));
+                canvasArea.SetMode(Canvas.modeType.CreateUseCase);
+
             }
         });
         canvasArea.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                CanvasItem item = canvasArea.paintList.get(canvasArea.paintList.size()-1);
+                int depth =  canvasArea.paintList.size();
+                CanvasItem item = canvasArea.getMode().generator(depth);
                 item.setStartPoint(e.getX(),e.getY());
                 canvasArea.repaint();
+                canvasArea.paintList.add(item); // ToDo
             }
+        });
+        canvasArea.addMouseListener(new MouseAdapter() {
         });
     }
 
