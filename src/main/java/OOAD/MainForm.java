@@ -16,28 +16,34 @@ public class MainForm  {
     private JButton classBtn;
     private JButton useCaseBtn;
     public Canvas canvasArea;
+    private Mode mode;
 
     public MainForm() {
-        useCaseBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                canvasArea.SetMode(Canvas.modeType.CreateUseCase);
-
-            }
-        });
+        mode = Mode.Select;
+        canvasArea.setLayout(null);
         canvasArea.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                int depth =  canvasArea.paintList.size();
-                CanvasItem item = canvasArea.getMode().generator(depth);
-                item.setStartPoint(e.getX(),e.getY());
+                mode.perform(canvasArea, new Point(e.getX(),e.getY()));
                 canvasArea.repaint();
-                canvasArea.paintList.add(item); // ToDo
             }
         });
-        canvasArea.addMouseListener(new MouseAdapter() {
+        classBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                mode = Mode.CreateClass;
+            }
         });
+        useCaseBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mode = Mode.CreateUseCase;
+            }
+        });
+
+
     }
 
     public static void main(String[] args) {
@@ -48,5 +54,4 @@ public class MainForm  {
         frame.pack();
         frame.setVisible(true);
     }
-
 }
