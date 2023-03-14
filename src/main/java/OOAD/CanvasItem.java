@@ -2,9 +2,14 @@ package OOAD;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-
-abstract class CanvasItem {
+interface I_CanvasItem{
+    void setListener();
+    void removeListener();
+}
+abstract class CanvasItem implements I_CanvasItem {
 
     protected Point startPoint;
     protected int depth;
@@ -35,8 +40,48 @@ abstract class BasicObject extends CanvasItem {
         setSize(96,96);
         setStartPoint(p.x,p.y);
         setDepth(depth);
+        setListener();
 
     }
+    public void setListener(){
+        block.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (!MainForm.mode.equals(Mode.Select)) {
+                    MouseEvent convertMouseEvent = SwingUtilities.convertMouseEvent(block, e, block.getParent());
+                    block.getParent().dispatchEvent(convertMouseEvent);
+                    return;
+                };
+                System.out.println(depth);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+    }
+
+    @Override
+    public void removeListener(){
+
+    };
+
     public void setSize(int width,int height){
         _width = width;
         _height = height;
@@ -51,7 +96,7 @@ abstract class BasicObject extends CanvasItem {
         return block;
     }
 }
-abstract class ConnectionLine extends CanvasItem {
+abstract class ConnectionLine extends CanvasItem  {
     private  Point endLocation;
     ConnectionLine(int depth,int endLocationX,int endLocationY){
 

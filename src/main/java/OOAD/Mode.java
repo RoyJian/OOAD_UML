@@ -17,8 +17,8 @@ public enum Mode  implements I_Mode{
         public void perform(Canvas canvas, Point p){
             //ToDo
 
-        }
 
+        }
     }, CreateAssociationLine(2,"AssociationLine") {
         @Override
         public CanvasItem generator(int depth,Point p) {
@@ -53,7 +53,7 @@ public enum Mode  implements I_Mode{
         public void perform(Canvas canvas, Point p) {
 
         }
-    }, CreateClass(5,"CompositionLine") {
+    }, CreateClass(5,"Class") {
         @Override
         public CanvasItem generator(int depth,Point p) {
             return new Class_UML(depth,p);
@@ -61,9 +61,7 @@ public enum Mode  implements I_Mode{
 
         @Override
         public void perform(Canvas canvas, Point p) {
-            int depth =  canvas.paintList.size();
-            BasicObject item = (BasicObject) generator(depth,p);
-            addComponent(canvas,item);
+            addBasicObj(canvas, p);
         }
 
 
@@ -74,18 +72,20 @@ public enum Mode  implements I_Mode{
         }
         @Override
         public void perform(Canvas canvas, Point p){
-            int depth =  canvas.paintList.size();
-            BasicObject item = (BasicObject) generator(depth,p);
-            addComponent(canvas,item);
+            addBasicObj(canvas, p);
         }
-
-
     };
 
-    public void addComponent(Canvas canvas,BasicObject item){
-        canvas.add(item.paint());
+    public void addBasicObj(Canvas canvas, Point p){
+        int depth =  100 - canvas.paintList.size();
+        BasicObject item = (BasicObject) generator(depth,p);
+        Component comp = item.paint();
         canvas.paintList.add(item);
+        canvas.add(comp,0);
+
+
     }
+
     public final String name;
     public final int id;
     Mode(int id,String name){

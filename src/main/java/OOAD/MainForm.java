@@ -16,7 +16,7 @@ public class MainForm  {
     private JButton classBtn;
     private JButton useCaseBtn;
     public Canvas canvasArea;
-    private Mode mode;
+    public static Mode mode;
 
     public MainForm() {
         mode = Mode.Select;
@@ -29,10 +29,9 @@ public class MainForm  {
                 canvasArea.repaint();
             }
         });
-        classBtn.addMouseListener(new MouseAdapter() {
+        classBtn.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void actionPerformed(ActionEvent e) {
                 mode = Mode.CreateClass;
             }
         });
@@ -43,7 +42,12 @@ public class MainForm  {
             }
         });
 
-
+        selectBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mode = Mode.Select;
+            }
+        });
     }
 
     public static void main(String[] args) {
