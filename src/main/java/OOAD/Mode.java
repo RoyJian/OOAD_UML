@@ -4,74 +4,75 @@ import java.awt.*;
 
 interface I_Mode{
     CanvasItem generator(int depth, Point p);
-    void perform(Canvas canvas,Point p);
+    void canvasPerform(Canvas canvas, Point p);
+
 }
 public enum Mode  implements I_Mode{
-    Select(1,"select"){
+    Select(1,"select", new SelectModMouseAdapter()){
         @Override
         public CanvasItem generator(int depth, Point p) {
             return null;
         }
 
         @Override
-        public void perform(Canvas canvas, Point p){
+        public void canvasPerform(Canvas canvas, Point p){
             //ToDo
 
 
         }
-    }, CreateAssociationLine(2,"AssociationLine") {
+    }, CreateAssociationLine(2,"AssociationLine", new ConnectionModMouseAdapter()) {
         @Override
         public CanvasItem generator(int depth,Point p) {
             return null;
         }
 
         @Override
-        public void perform(Canvas canvas, Point p) {
+        public void canvasPerform(Canvas canvas, Point p) {
 
         }
 
 
-    }, CreateGeneralizationLine(3,"GeneralizationLine") {
+    }, CreateGeneralizationLine(3,"GeneralizationLine", new ConnectionModMouseAdapter()) {
         @Override
         public CanvasItem generator(int depth,Point p) {
             return null;
         }
 
         @Override
-        public void perform(Canvas canvas, Point p) {
+        public void canvasPerform(Canvas canvas, Point p) {
 
         }
 
 
-    }, CreateCompositionLine(4,"CompositionLine") {
+    }, CreateCompositionLine(4,"CompositionLine", new ConnectionModMouseAdapter()) {
         @Override
         public CanvasItem generator(int depth,Point p) {
             return null;
         }
 
         @Override
-        public void perform(Canvas canvas, Point p) {
-
+        public void canvasPerform(Canvas canvas, Point p) {
         }
-    }, CreateClass(5,"Class") {
+    }, CreateClass(5,"Class", new BasicObjModMouseListener()) {
         @Override
         public CanvasItem generator(int depth,Point p) {
             return new Class_UML(depth,p);
         }
 
         @Override
-        public void perform(Canvas canvas, Point p) {
+        public void canvasPerform(Canvas canvas, Point p) {
             addBasicObj(canvas, p);
         }
 
 
-    }, CreateUseCase(6, "UseCase") {
+
+    }, CreateUseCase(6, "UseCase", new BasicObjModMouseListener()) {
         @Override
         public CanvasItem generator(int depth,Point p) {
             return new UseClass_UML(depth,p);
         }
         @Override
-        public void perform(Canvas canvas, Point p){
+        public void canvasPerform(Canvas canvas, Point p){
             addBasicObj(canvas, p);
         }
     };
@@ -82,15 +83,14 @@ public enum Mode  implements I_Mode{
         Component comp = item.paint();
         canvas.paintList.add(item);
         canvas.add(comp,0);
-
-
     }
 
     public final String name;
     public final int id;
-    Mode(int id,String name){
-
+    public final ItemMouseListener itemMouseListener;
+    Mode(int id,String name,ItemMouseListener itemMouseListener){
         this.name = name;
         this.id = id;
+        this.itemMouseListener = itemMouseListener;
     }
 }

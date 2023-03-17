@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class MainForm  {
+public class MainForm {
     private JPanel panel1;
     private JMenuBar menuBar1;
     private JMenu fileMenu;
@@ -15,7 +15,7 @@ public class MainForm  {
     private JButton compositionBtn;
     private JButton classBtn;
     private JButton useCaseBtn;
-    public Canvas canvasArea;
+    public  Canvas canvasArea;
     public static Mode mode;
 
     public MainForm() {
@@ -25,7 +25,7 @@ public class MainForm  {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                mode.perform(canvasArea, new Point(e.getX(),e.getY()));
+                mode.canvasPerform(canvasArea, new Point(e.getX(), e.getY()));
                 canvasArea.repaint();
             }
         });
