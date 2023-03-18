@@ -2,7 +2,7 @@ package OOAD;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
+import java.awt.event.*;
 
 public class MainForm {
     private JPanel panel1;
@@ -15,7 +15,40 @@ public class MainForm {
     private JButton compositionBtn;
     private JButton classBtn;
     private JButton useCaseBtn;
-    private JPanel Canvas;
+    public  Canvas canvasArea;
+    public static Mode mode;
+
+    public MainForm() {
+        mode = Mode.Select;
+        canvasArea.setLayout(null);
+        canvasArea.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                mode.canvasPerform(canvasArea, new Point(e.getX(), e.getY()));
+                canvasArea.repaint();
+            }
+        });
+        classBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mode = Mode.CreateClass;
+            }
+        });
+        useCaseBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mode = Mode.CreateUseCase;
+            }
+        });
+
+        selectBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mode = Mode.Select;
+            }
+        });
+    }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("OOAD UML Editor");
@@ -24,13 +57,5 @@ public class MainForm {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-
     }
-
-    private void createUIComponents() throws IOException {
-        // TODO: place custom component creation code here
-
-
-    }
-
 }
