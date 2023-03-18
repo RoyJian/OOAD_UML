@@ -78,11 +78,10 @@ public enum Mode  implements I_Mode{
     public void addBasicObj(Canvas canvas, Point p){
         int depth =  100 - canvas.paintList.size();
         BasicObject basicObject = (BasicObject) generator(depth,p);
-//        basicObject.setLocation(p);
         canvas.paintList.add(basicObject);
         canvas.add(basicObject,0);
         canvas.repaint();
-        basicObject.repaint();
+
     }
 
     public final String name;

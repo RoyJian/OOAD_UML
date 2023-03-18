@@ -48,14 +48,21 @@ class BasicObjModMouseListener extends ItemMouseListener {
     }
 }
 class SelectModMouseAdapter extends ItemMouseListener{
-
+    BasicObject nowSelectedObj;
+    SelectModMouseAdapter(){
+        super();
+        nowSelectedObj = new ClassItem(0, new Point(0,0)); //fake
+    }
     @Override
     public void mouseClicked(MouseEvent e) {
+        nowSelectedObj.disableAllConnectionPort();
         JLabel l = (JLabel)e.getComponent();
-        JPanel item = (JPanel) l.getParent();
+        BasicObject item = (BasicObject) l.getParent();
         JPanel canvas = (JPanel) item.getParent();
+        item.enableAllConnectionPort();
         canvas.setComponentZOrder(item,0);
         canvas.repaint();
+        nowSelectedObj = item;
     }
 
     @Override
