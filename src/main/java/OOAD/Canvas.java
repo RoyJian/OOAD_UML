@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 
 public class Canvas extends JPanel  {
-    public ArrayList <CanvasItem> paintList;
+    public ArrayList <Component> paintList;
 
 //    @Override
 //    public void paint(Graphics g) {
@@ -22,7 +22,7 @@ public class Canvas extends JPanel  {
 
 
     Canvas(){
-        paintList = new  ArrayList<CanvasItem>();
+        paintList = new  ArrayList<Component>();
     }
 
 

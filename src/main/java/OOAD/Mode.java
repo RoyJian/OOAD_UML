@@ -3,26 +3,24 @@ package OOAD;
 import java.awt.*;
 
 interface I_Mode{
-    CanvasItem generator(int depth, Point p);
+    Component generator(int depth, Point p);
     void canvasPerform(Canvas canvas, Point p);
 
 }
 public enum Mode  implements I_Mode{
     Select(1,"select", new SelectModMouseAdapter()){
         @Override
-        public CanvasItem generator(int depth, Point p) {
+        public Component generator(int depth, Point p) {
             return null;
         }
 
         @Override
         public void canvasPerform(Canvas canvas, Point p){
-            //ToDo
-
 
         }
     }, CreateAssociationLine(2,"AssociationLine", new ConnectionModMouseAdapter()) {
         @Override
-        public CanvasItem generator(int depth,Point p) {
+        public Component generator(int depth,Point p) {
             return null;
         }
 
@@ -34,7 +32,7 @@ public enum Mode  implements I_Mode{
 
     }, CreateGeneralizationLine(3,"GeneralizationLine", new ConnectionModMouseAdapter()) {
         @Override
-        public CanvasItem generator(int depth,Point p) {
+        public Component generator(int depth,Point p) {
             return null;
         }
 
@@ -46,7 +44,7 @@ public enum Mode  implements I_Mode{
 
     }, CreateCompositionLine(4,"CompositionLine", new ConnectionModMouseAdapter()) {
         @Override
-        public CanvasItem generator(int depth,Point p) {
+        public Component generator(int depth,Point p) {
             return null;
         }
 
@@ -55,8 +53,8 @@ public enum Mode  implements I_Mode{
         }
     }, CreateClass(5,"Class", new BasicObjModMouseListener()) {
         @Override
-        public CanvasItem generator(int depth,Point p) {
-            return new Class_UML(depth,p);
+        public Component generator(int depth,Point p) {
+            return new ClassItem(depth,p);
         }
 
         @Override
@@ -68,8 +66,8 @@ public enum Mode  implements I_Mode{
 
     }, CreateUseCase(6, "UseCase", new BasicObjModMouseListener()) {
         @Override
-        public CanvasItem generator(int depth,Point p) {
-            return new UseClass_UML(depth,p);
+        public Component generator(int depth,Point p) {
+            return new UseCaseItem(depth, p);
         }
         @Override
         public void canvasPerform(Canvas canvas, Point p){
@@ -79,10 +77,12 @@ public enum Mode  implements I_Mode{
 
     public void addBasicObj(Canvas canvas, Point p){
         int depth =  100 - canvas.paintList.size();
-        BasicObject item = (BasicObject) generator(depth,p);
-        Component comp = item.paint();
-        canvas.paintList.add(item);
-        canvas.add(comp,0);
+        BasicObject basicObject = (BasicObject) generator(depth,p);
+//        basicObject.setLocation(p);
+        canvas.paintList.add(basicObject);
+        canvas.add(basicObject,0);
+        canvas.repaint();
+        basicObject.repaint();
     }
 
     public final String name;

@@ -14,37 +14,37 @@ class BasicObjModMouseListener extends ItemMouseListener {
     @Override
     public void mouseClicked(MouseEvent e){
         JLabel l = (JLabel)e.getComponent();
-        MouseEvent convertMouseEvent = SwingUtilities.convertMouseEvent(l, e, l.getParent());
-        l.getParent().dispatchEvent(convertMouseEvent);
+        MouseEvent convertMouseEvent = SwingUtilities.convertMouseEvent(l, e, l.getParent().getParent());
+        l.getParent().getParent().dispatchEvent(convertMouseEvent);
 
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         JLabel l = (JLabel)e.getComponent();
-        MouseEvent convertMouseEvent = SwingUtilities.convertMouseEvent(l, e, l.getParent());
-        l.getParent().dispatchEvent(convertMouseEvent);
+        MouseEvent convertMouseEvent = SwingUtilities.convertMouseEvent(l, e, l.getParent().getParent());
+        l.getParent().getParent().dispatchEvent(convertMouseEvent);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         JLabel l = (JLabel)e.getComponent();
-        MouseEvent convertMouseEvent = SwingUtilities.convertMouseEvent(l, e, l.getParent());
-        l.getParent().dispatchEvent(convertMouseEvent);
+        MouseEvent convertMouseEvent = SwingUtilities.convertMouseEvent(l, e, l.getParent().getParent());
+        l.getParent().getParent().dispatchEvent(convertMouseEvent);
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
         JLabel l = (JLabel)e.getComponent();
-        MouseEvent convertMouseEvent = SwingUtilities.convertMouseEvent(l, e, l.getParent());
-        l.getParent().dispatchEvent(convertMouseEvent);
+        MouseEvent convertMouseEvent = SwingUtilities.convertMouseEvent(l, e, l.getParent().getParent());
+        l.getParent().getParent().dispatchEvent(convertMouseEvent);
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         JLabel l = (JLabel)e.getComponent();
-        MouseEvent convertMouseEvent = SwingUtilities.convertMouseEvent(l, e, l.getParent());
-        l.getParent().dispatchEvent(convertMouseEvent);
+        MouseEvent convertMouseEvent = SwingUtilities.convertMouseEvent(l, e, l.getParent().getParent());
+        l.getParent().getParent().dispatchEvent(convertMouseEvent);
     }
 }
 class SelectModMouseAdapter extends ItemMouseListener{
@@ -52,8 +52,10 @@ class SelectModMouseAdapter extends ItemMouseListener{
     @Override
     public void mouseClicked(MouseEvent e) {
         JLabel l = (JLabel)e.getComponent();
-        l.getParent().setComponentZOrder(l,0);
-        l.getParent().repaint();
+        JPanel item = (JPanel) l.getParent();
+        JPanel canvas = (JPanel) item.getParent();
+        canvas.setComponentZOrder(item,0);
+        canvas.repaint();
     }
 
     @Override
