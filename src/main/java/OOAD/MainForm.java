@@ -33,12 +33,14 @@ public class MainForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mode = Mode.CreateClass;
+                mode.buttonPerform();
             }
         });
         useCaseBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mode = Mode.CreateUseCase;
+                mode.buttonPerform();
             }
         });
 
@@ -46,6 +48,7 @@ public class MainForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mode = Mode.Select;
+                mode.buttonPerform();
             }
         });
     }

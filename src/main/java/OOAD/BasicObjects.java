@@ -3,7 +3,6 @@ package OOAD;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 abstract class BasicObject extends JPanel {
     protected Point startPoint;
@@ -26,31 +25,38 @@ abstract class BasicObject extends JPanel {
         setListener();
 
     }
+
     public void setListener(){
-        imageLabel.addMouseListener(new MouseListener() {
+        imageLabel.addMouseListener(new ImgLabelMouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                 MainForm.mode.itemMouseListener.mouseClicked(e);
+                 MainForm.mode.imgLabelMouseListener.mouseClicked(e);
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
-                MainForm.mode.itemMouseListener.mousePressed(e);
+                MainForm.mode.imgLabelMouseListener.mousePressed(e);
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                MainForm.mode.itemMouseListener.mouseReleased(e);
+                MainForm.mode.imgLabelMouseListener.mouseReleased(e);
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                MainForm.mode.itemMouseListener.mouseEntered(e);
+                MainForm.mode.imgLabelMouseListener.mouseEntered(e);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                MainForm.mode.itemMouseListener.mouseExited(e);
+                MainForm.mode.imgLabelMouseListener.mouseExited(e);
+            }
+        });
+        imageLabel.addMouseMotionListener(new ImgLabelMouseListener(){
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                MainForm.mode.imgLabelMouseListener.mouseDragged(e);
             }
         });
     }

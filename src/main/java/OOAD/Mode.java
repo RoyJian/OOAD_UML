@@ -86,10 +86,19 @@ public enum Mode  implements I_Mode{
 
     public final String name;
     public final int id;
-    public final ItemMouseListener itemMouseListener;
-    Mode(int id,String name,ItemMouseListener itemMouseListener){
+    public final ImgLabelMouseListener imgLabelMouseListener;
+
+    public void buttonPerform(){
+        Canvas.nowSelectedObj.disableAllConnectionPort();
+        try{
+            Canvas c = (Canvas) Canvas.nowSelectedObj.getParent();
+            c.repaint();
+        }catch (NullPointerException ignored){}
+        Canvas.nowSelectedObj = new ClassItem(0, new Point(0,0)); //fake
+    };
+    Mode(int id, String name, ImgLabelMouseListener imgLabelMouseListener){
         this.name = name;
         this.id = id;
-        this.itemMouseListener = itemMouseListener;
+        this.imgLabelMouseListener = imgLabelMouseListener;
     }
 }
