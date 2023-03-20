@@ -5,10 +5,12 @@ import java.awt.*;
 interface I_Mode{
     Component generator(int depth, Point p);
     void canvasPerform(Canvas canvas, Point p);
+    void paintCanvas(Graphics g);
 
 }
 public enum Mode  implements I_Mode{
     Select(1,"select", new SelectModMouseAdapter()){
+
         @Override
         public Component generator(int depth, Point p) {
             return null;
@@ -16,6 +18,10 @@ public enum Mode  implements I_Mode{
 
         @Override
         public void canvasPerform(Canvas canvas, Point p){
+
+        }
+        @Override
+        public void paintCanvas(Graphics g){
 
         }
     }, CreateAssociationLine(2,"AssociationLine", new ConnectionModMouseAdapter()) {
@@ -83,7 +89,9 @@ public enum Mode  implements I_Mode{
         canvas.repaint();
 
     }
+    public void paintCanvas(Graphics g){
 
+    }
     public final String name;
     public final int id;
     public final ImgLabelMouseListener imgLabelMouseListener;

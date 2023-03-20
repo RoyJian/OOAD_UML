@@ -21,14 +21,6 @@ public class MainForm {
     public MainForm() {
         mode = Mode.Select;
         canvasArea.setLayout(null);
-        canvasArea.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                mode.canvasPerform(canvasArea, new Point(e.getX(), e.getY()));
-                canvasArea.repaint();
-            }
-        });
         classBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
