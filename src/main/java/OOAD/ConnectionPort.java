@@ -2,7 +2,7 @@ package OOAD;
 
 import java.awt.*;
 
-class ConnectionPort {
+public class ConnectionPort {
    public static final int width = 20;
    public static final int height = 20;
    private Point p;

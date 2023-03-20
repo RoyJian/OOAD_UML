@@ -21,6 +21,10 @@ public class Canvas extends JPanel  {
         draggedPoint = null;
         addMouseListener(new MouseAdapter() {
             @Override
+            public void mouseClicked(MouseEvent e){
+                MainForm.mode.canvasMouseListener.mouseClicked(e);
+            }
+            @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
                 MainForm.mode.canvasMouseListener.mousePressed(e);

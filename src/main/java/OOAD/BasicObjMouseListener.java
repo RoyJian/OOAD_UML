@@ -20,20 +20,9 @@ abstract class BasicObjMouseListener extends MouseAdapter implements MouseMotion
 
 class BasicObjModMouseListener extends BasicObjMouseListener {
     @Override
-    public void mouseClicked(MouseEvent e){
-        passToCanvas(e);
-    }
-
-    @Override
     public void mousePressed(MouseEvent e) {
         passToCanvas(e);
     }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        passToCanvas(e);
-    }
-
 
 }
 class SelectModMouseAdapter extends BasicObjMouseListener {
@@ -50,10 +39,6 @@ class SelectModMouseAdapter extends BasicObjMouseListener {
         canvas.setComponentZOrder(item,0);
         canvas.repaint();
         Canvas.nowSelectedObj = item;
-    }
-    @Override
-    public void mouseReleased(MouseEvent e){
-        passToCanvas(e);
     }
 
     @Override

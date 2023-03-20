@@ -2,6 +2,7 @@ package OOAD;
 
 import OOAD.Utils.Utils;
 
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -10,17 +11,33 @@ abstract class CanvasMouseListener extends MouseAdapter implements MouseMotionLi
 }
 
 class SelectModCanvasMouseListener extends CanvasMouseListener{
+
     @Override
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
         Canvas canvas = Utils.getCanvas();
         Canvas.nowSelectedObj.disableAllConnectionPort();
         canvas.pressPoint = e.getPoint();
+        for (Component component :Canvas.selectBag){
+            BasicObject basicObject = (BasicObject) component;
+            basicObject.disableAllConnectionPort();
+
+        }
+        Canvas.selectBag.clear();
         canvas.repaint();
     }
     @Override
     public void mouseReleased(MouseEvent e){
         Canvas canvas = Utils.getCanvas();
+        Component[] components = canvas.getComponents();
+        Dimension size = canvas.getSelectGroupSize();
+        for (Component component : components) {
+            BasicObject basicObject = (BasicObject) component;
+            if (Utils.isInSelectGroup(component)) {
+                basicObject.enableAllConnectionPort();
+                Canvas.selectBag.add(component);
+            }
+        }
         canvas.setSelectGroupSize(0,0);
         canvas.pressPoint = null;
         canvas.repaint();
