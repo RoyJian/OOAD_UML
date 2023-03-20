@@ -50,6 +50,12 @@ class SelectModMouseAdapter extends ImgLabelMouseListener {
         canvas.repaint();
         Canvas.nowSelectedObj = item;
     }
+    @Override
+    public void mouseReleased(MouseEvent e){
+        JLabel l = (JLabel)e.getComponent();
+        MouseEvent convertMouseEvent = SwingUtilities.convertMouseEvent(l, e, l.getParent().getParent());
+        l.getParent().getParent().dispatchEvent(convertMouseEvent);
+    }
 
     @Override
     public void mouseDragged(MouseEvent e){

@@ -1,11 +1,13 @@
 package OOAD;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 interface I_Mode{
     Component generator(int depth, Point p);
     void canvasPerform(Canvas canvas, Point p);
-    void paintCanvas(Graphics g);
+    void canvasDragged(MouseEvent e);
+    void paintCanvas(Canvas canvas, Graphics g);
 
 }
 public enum Mode  implements I_Mode{
@@ -18,10 +20,29 @@ public enum Mode  implements I_Mode{
 
         @Override
         public void canvasPerform(Canvas canvas, Point p){
-
+            canvas.pressPoint = p;
         }
         @Override
-        public void paintCanvas(Graphics g){
+        public void canvasDragged(MouseEvent e){
+            Canvas canvas = (Canvas) e.getComponent();
+            canvas.draggedPoint = e.getPoint();
+            int width = Math.abs(e.getX() - canvas.pressPoint.x);
+            int height = Math.abs(e.getY() - canvas.pressPoint.y);
+            canvas.setSelectGroupSize(width,height);
+            canvas.repaint();
+        }
+        @Override
+        public void paintCanvas(Canvas canvas, Graphics g){
+            try{
+                Dimension size = canvas.getSelectGroupSize();
+                int x = Math.min(canvas.pressPoint.x,canvas.draggedPoint.x);
+                int y = Math.min(canvas.pressPoint.y,canvas.draggedPoint.y);
+                g.setColor(new Color(50,180,249));
+                g.drawRect(x,y, size.width, size.height);
+                g.setColor(new Color(50,180,249,40));
+                g.fillRect(x,y, size.width, size.height);
+            }
+            catch (NullPointerException ignore){}
 
         }
     }, CreateAssociationLine(2,"AssociationLine", new ConnectionModMouseAdapter()) {
@@ -89,12 +110,12 @@ public enum Mode  implements I_Mode{
         canvas.repaint();
 
     }
-    public void paintCanvas(Graphics g){
-
-    }
+    public void paintCanvas(Canvas canvas,Graphics g){};
+    public void canvasDragged(MouseEvent e){};
     public final String name;
     public final int id;
     public final ImgLabelMouseListener imgLabelMouseListener;
+
 
     public void buttonPerform(){
         Canvas.nowSelectedObj.disableAllConnectionPort();
