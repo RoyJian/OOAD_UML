@@ -1,5 +1,7 @@
 package OOAD;
 
+import OOAD.Utils.Utils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -43,6 +45,7 @@ public class MainForm {
                 mode.buttonPerform();
             }
         });
+        Utils.setMain(this);
     }
 
     public static void main(String[] args) {

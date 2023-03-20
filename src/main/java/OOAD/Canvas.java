@@ -5,7 +5,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-
 public class Canvas extends JPanel  {
     public ArrayList <Component> paintList;
     public static ArrayList<Component> selectBag;
