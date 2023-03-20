@@ -70,11 +70,10 @@ abstract class BasicObject extends JPanel {
         imageLabel.setLocation(ConnectionPort.width,ConnectionPort.height);
         imageLabel.setSize(new Dimension(imageIcon.getIconWidth(),imageIcon.getIconHeight()));
         add(imageLabel);
-
     }
 
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         super.paint(g);
         int width = imageLabel.getWidth() + ConnectionPort.width;
         int height = imageLabel.getHeight() + ConnectionPort.height;
@@ -87,10 +86,7 @@ abstract class BasicObject extends JPanel {
     public void enableAllConnectionPort(){
         connectionPortColor = Color.BLACK;
     }
-    public void disableAllConnectionPort(){
-        connectionPortColor = new Color(0,0,0,0);
-
-    }
+    public void disableAllConnectionPort(){ connectionPortColor = new Color(0,0,0,0); }
 }
 class ClassItem extends BasicObject{
     ClassItem(int depth, Point p){

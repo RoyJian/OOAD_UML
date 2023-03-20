@@ -23,26 +23,20 @@ public class Canvas extends JPanel  {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                Canvas canvas = (Canvas) e.getComponent();
-                MainForm.mode.canvasPerform(canvas, e.getPoint());
-                canvas.repaint();
+                MainForm.mode.canvasMouseListener.mousePressed(e);
             }
             @Override
             public void mouseReleased(MouseEvent e){
-                Canvas canvas = (Canvas) e.getComponent();
-                canvas.setSelectGroupSize(0,0);
-                canvas.pressPoint = null;
-                repaint();
+                super.mouseReleased(e);
+                MainForm.mode.canvasMouseListener.mouseReleased(e);
             }
         });
         addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                MainForm.mode.canvasDragged(e);
-                repaint();
+                MainForm.mode.canvasMouseListener.mouseDragged(e);
             }
-
         });
 
     }
