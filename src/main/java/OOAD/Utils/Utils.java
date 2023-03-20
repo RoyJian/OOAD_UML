@@ -17,17 +17,15 @@ public class Utils{
     public static Boolean isInSelectGroup(Component component){
         Canvas canvas = getCanvas();
         Dimension GroupSize = canvas.getSelectGroupSize();
-        int ComponentStartX = component.getX() + ConnectionPort.width ;
-        int ComponentStartY = component.getY() + ConnectionPort.height;
-        int ComponentEndX = ComponentStartX + component.getWidth() - 2*ConnectionPort.width;
-        int ComponentEndY = ComponentStartY + component.getHeight() - 2*ConnectionPort.height;
         int GroupStartX = Math.min(canvas.pressPoint.x,canvas.draggedPoint.x);
         int GroupStartY = Math.min(canvas.pressPoint.y, canvas.draggedPoint.y);
         int GroupEndX = GroupStartX + GroupSize.width;
         int GroupEndY = GroupStartY + GroupSize.height;
-        return !(Math.max(ComponentStartX, GroupStartX) > Math.min(ComponentEndX,GroupEndX) ||
-                    Math.max(ComponentStartY,GroupStartY) >  Math.min(ComponentEndY,GroupEndY));
+        int ComponentStartX = component.getX() + ConnectionPort.width ;
+        int ComponentStartY = component.getY() + ConnectionPort.height;
+        int ComponentEndX = ComponentStartX + component.getWidth() - 2*ConnectionPort.width;
+        int ComponentEndY = ComponentStartY + component.getHeight() - 2*ConnectionPort.height;
+        return ComponentStartX > GroupStartX && ComponentEndX < GroupEndX &&
+                ComponentStartY > GroupStartY && ComponentEndY < GroupEndY;
     }
-
-
 }

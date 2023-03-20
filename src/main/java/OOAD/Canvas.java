@@ -8,9 +8,8 @@ import java.util.ArrayList;
 public class Canvas extends JPanel  {
     public ArrayList <Component> paintList;
     public static ArrayList<Component> selectBag;
-//    public static BasicObject nowSelectedObj;
-    private int selectGroupWidth,selectGroupHeight;
     public Point pressPoint,draggedPoint;
+    private int selectGroupWidth,selectGroupHeight;
     Canvas() {
         paintList = new  ArrayList<Component>();
         selectBag = new ArrayList<Component>();

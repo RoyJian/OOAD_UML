@@ -13,6 +13,13 @@ abstract class CanvasMouseListener extends MouseAdapter implements MouseMotionLi
 class SelectModCanvasMouseListener extends CanvasMouseListener{
 
     @Override
+    public void mouseClicked(MouseEvent e){
+        Canvas canvas = Utils.getCanvas();
+        Canvas.cleanSelectBag();
+        canvas.pressPoint = e.getPoint();
+        canvas.repaint();
+    }
+    @Override
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
         Canvas canvas = Utils.getCanvas();
