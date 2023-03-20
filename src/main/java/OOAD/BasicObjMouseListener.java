@@ -6,11 +6,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
-abstract class ImgLabelMouseListener extends MouseAdapter implements MouseMotionListener {
+abstract class BasicObjMouseListener extends MouseAdapter implements MouseMotionListener {
 
 }
 
-class BasicObjModMouseListener extends ImgLabelMouseListener {
+class BasicObjModMouseListener extends BasicObjMouseListener {
     @Override
     public void mouseClicked(MouseEvent e){
         JLabel l = (JLabel)e.getComponent();
@@ -35,7 +35,7 @@ class BasicObjModMouseListener extends ImgLabelMouseListener {
 
 
 }
-class SelectModMouseAdapter extends ImgLabelMouseListener {
+class SelectModMouseAdapter extends BasicObjMouseListener {
     private Point lastPoint = null;
 
     @Override
@@ -69,6 +69,6 @@ class SelectModMouseAdapter extends ImgLabelMouseListener {
 
     }
 }
-class ConnectionModMouseAdapter extends ImgLabelMouseListener {
+class ConnectionModMouseAdapter extends BasicObjMouseListener {
 
 }

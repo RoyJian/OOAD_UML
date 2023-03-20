@@ -1,7 +1,6 @@
 package OOAD;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 
 interface I_Mode{
     Component generator(int depth, Point p);
@@ -61,7 +60,7 @@ public enum Mode  implements I_Mode{
     };
     public final String name;
     public final int id;
-    public final ImgLabelMouseListener imgLabelMouseListener;
+    public final BasicObjMouseListener basicObjMouseListener;
     public final CanvasMouseListener canvasMouseListener;
     public void addBasicObj(Canvas canvas, Point p){
         int depth =  100 - canvas.paintList.size();
@@ -80,10 +79,10 @@ public enum Mode  implements I_Mode{
         } catch (NullPointerException ignored){}
         Canvas.nowSelectedObj = new ClassItem(0, new Point(0,0)); //fake
     };
-    Mode(int id, String name, ImgLabelMouseListener imgLabelMouseListener,CanvasMouseListener canvasMouseListener){
+    Mode(int id, String name, BasicObjMouseListener basicObjMouseListener, CanvasMouseListener canvasMouseListener){
         this.name = name;
         this.id = id;
-        this.imgLabelMouseListener = imgLabelMouseListener;
+        this.basicObjMouseListener = basicObjMouseListener;
         this.canvasMouseListener = canvasMouseListener;
     }
 }

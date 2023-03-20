@@ -27,36 +27,36 @@ abstract class BasicObject extends JPanel {
     }
 
     public void setListener(){
-        imageLabel.addMouseListener(new ImgLabelMouseListener() {
+        imageLabel.addMouseListener(new BasicObjMouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                 MainForm.mode.imgLabelMouseListener.mouseClicked(e);
+                 MainForm.mode.basicObjMouseListener.mouseClicked(e);
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
-                MainForm.mode.imgLabelMouseListener.mousePressed(e);
+                MainForm.mode.basicObjMouseListener.mousePressed(e);
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                MainForm.mode.imgLabelMouseListener.mouseReleased(e);
+                MainForm.mode.basicObjMouseListener.mouseReleased(e);
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                MainForm.mode.imgLabelMouseListener.mouseEntered(e);
+                MainForm.mode.basicObjMouseListener.mouseEntered(e);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                MainForm.mode.imgLabelMouseListener.mouseExited(e);
+                MainForm.mode.basicObjMouseListener.mouseExited(e);
             }
         });
-        imageLabel.addMouseMotionListener(new ImgLabelMouseListener(){
+        imageLabel.addMouseMotionListener(new BasicObjMouseListener(){
             @Override
             public void mouseDragged(MouseEvent e) {
-                MainForm.mode.imgLabelMouseListener.mouseDragged(e);
+                MainForm.mode.basicObjMouseListener.mouseDragged(e);
             }
         });
     }
