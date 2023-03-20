@@ -8,11 +8,10 @@ import java.util.ArrayList;
 public class Canvas extends JPanel  {
     public ArrayList <Component> paintList;
     public static ArrayList<Component> selectBag;
-    public static BasicObject nowSelectedObj;
+//    public static BasicObject nowSelectedObj;
     private int selectGroupWidth,selectGroupHeight;
     public Point pressPoint,draggedPoint;
     Canvas() {
-        nowSelectedObj = new ClassItem(0, new Point(0,0)); //fake
         paintList = new  ArrayList<Component>();
         selectBag = new ArrayList<Component>();
         selectGroupWidth = 0;
@@ -56,5 +55,11 @@ public class Canvas extends JPanel  {
       super.paint(g);
       MainForm.mode.paintCanvas(this, g);
     };
+    public static void cleanSelectBag(){
+        for (Component component:selectBag){
+            ((BasicObject) component).disableAllConnectionPort();
+        }
+        selectBag.clear();
+    }
 
 }

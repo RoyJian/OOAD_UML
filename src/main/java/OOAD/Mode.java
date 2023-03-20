@@ -1,5 +1,7 @@
 package OOAD;
 
+import OOAD.Utils.Utils;
+
 import java.awt.*;
 
 interface I_Mode{
@@ -72,12 +74,8 @@ public enum Mode  implements I_Mode{
     }
     public void paintCanvas(Canvas canvas,Graphics g){};
     public void buttonPerform(){
-        Canvas.nowSelectedObj.disableAllConnectionPort();
-        try {
-            Canvas c = (Canvas) Canvas.nowSelectedObj.getParent();
-            c.repaint();
-        } catch (NullPointerException ignored){}
-        Canvas.nowSelectedObj = new ClassItem(0, new Point(0,0)); //fake
+        Canvas.cleanSelectBag();
+        Utils.getCanvas().repaint();
     };
     Mode(int id, String name, BasicObjMouseListener basicObjMouseListener, CanvasMouseListener canvasMouseListener){
         this.name = name;

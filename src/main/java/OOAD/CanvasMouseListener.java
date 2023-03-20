@@ -16,14 +16,8 @@ class SelectModCanvasMouseListener extends CanvasMouseListener{
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
         Canvas canvas = Utils.getCanvas();
-        Canvas.nowSelectedObj.disableAllConnectionPort();
+        Canvas.cleanSelectBag();
         canvas.pressPoint = e.getPoint();
-        for (Component component :Canvas.selectBag){
-            BasicObject basicObject = (BasicObject) component;
-            basicObject.disableAllConnectionPort();
-
-        }
-        Canvas.selectBag.clear();
         canvas.repaint();
     }
     @Override

@@ -15,8 +15,6 @@ public class Utils{
         return  main.canvasArea;
     }
     public static Boolean isInSelectGroup(Component component){
-        Dimension ComponentSize = component.getSize();
-
         Canvas canvas = getCanvas();
         Dimension GroupSize = canvas.getSelectGroupSize();
         int ComponentStartX = component.getX() + ConnectionPort.width ;

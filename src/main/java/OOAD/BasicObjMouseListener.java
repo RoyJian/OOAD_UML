@@ -33,12 +33,12 @@ class SelectModMouseAdapter extends BasicObjMouseListener {
         lastPoint = e.getLocationOnScreen();
         JLabel l = (JLabel)e.getComponent();
         BasicObject item = (BasicObject) l.getParent();
+        Canvas.cleanSelectBag();
         Canvas canvas = Utils.getCanvas();
-        Canvas.nowSelectedObj.disableAllConnectionPort();
+        Canvas.selectBag.add(item);
         item.enableAllConnectionPort();
         canvas.setComponentZOrder(item,0);
         canvas.repaint();
-        Canvas.nowSelectedObj = item;
     }
 
     @Override
