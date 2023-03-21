@@ -11,6 +11,7 @@ public class Utils{
     public static void setMain(MainForm main){
         Utils.main = main;
     }
+    public static MainForm getMain() { return main; }
     public static Canvas getCanvas(){
         return  main.canvasArea;
     }
@@ -27,5 +28,15 @@ public class Utils{
         int ComponentEndY = ComponentStartY + component.getHeight() - 2*ConnectionPort.height;
         return ComponentStartX > GroupStartX && ComponentEndX < GroupEndX &&
                 ComponentStartY > GroupStartY && ComponentEndY < GroupEndY;
+    }
+    public static Point minPoint(Point a, Point b){
+        int x = Math.min(a.x,b.x);
+        int y = Math.min(a.y,b.y);
+        return  (new Point(x,y));
+    };
+    public static Point maxPoint(Point a, Point b){
+        int x = Math.max(a.x,b.x);
+        int y = Math.max(a.y,b.y);
+        return  (new Point(x,y));
     }
 }

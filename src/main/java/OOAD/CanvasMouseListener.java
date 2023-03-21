@@ -33,6 +33,7 @@ class SelectModCanvasMouseListener extends CanvasMouseListener{
         Component[] components = canvas.getComponents();
         Dimension size = canvas.getSelectGroupSize();
         for (Component component : components) {
+            //Todo
             BasicObject basicObject = (BasicObject) component;
             if (Utils.isInSelectGroup(component)) {
                 basicObject.enableAllConnectionPort();

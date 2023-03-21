@@ -29,6 +29,10 @@ public enum Mode  implements I_Mode{
                 g.fillRect(x,y, size.width, size.height);
             } catch (NullPointerException ignore){}
         }
+        @Override
+        public void buttonPerform(){
+            Utils.getMain().setGroupEnable(true);
+        }
     }, CreateAssociationLine(
             2,"AssociationLine", new ConnectionModMouseAdapter(), new ConnectionLineModCanvasMouseListener()) {
         @Override
@@ -76,6 +80,7 @@ public enum Mode  implements I_Mode{
     public void buttonPerform(){
         Canvas.cleanSelectBag();
         Utils.getCanvas().repaint();
+        Utils.getMain().setGroupEnable(false);
     };
     Mode(int id, String name, BasicObjMouseListener basicObjMouseListener, CanvasMouseListener canvasMouseListener){
         this.name = name;

@@ -11,6 +11,8 @@ public class MainForm {
     private JMenuBar menuBar1;
     private JMenu fileMenu;
     private JMenu editMenu;
+    private JMenuItem groupMenuItem;
+    private JMenuItem unGroupMenuItem;
     private JButton selectBtn;
     private JButton associationBtn;
     private JButton generalizationBtn;
@@ -22,6 +24,10 @@ public class MainForm {
 
     public MainForm() {
         mode = Mode.Select;
+        groupMenuItem = new JMenuItem("Group");
+        unGroupMenuItem = new JMenuItem("Ungroup");
+        editMenu.add(groupMenuItem);
+        editMenu.add(unGroupMenuItem);
         canvasArea.setLayout(null);
         classBtn.addActionListener(new ActionListener() {
             @Override
@@ -45,9 +51,14 @@ public class MainForm {
                 mode.buttonPerform();
             }
         });
+        groupMenuItem.addActionListener(new GroupMenuListener());
+        unGroupMenuItem.addActionListener(new UnGroupListener());
         Utils.setMain(this);
     }
-
+    public void setGroupEnable(Boolean bool){
+        groupMenuItem.setEnabled(bool);
+        unGroupMenuItem.setEnabled(bool);
+    }
     public static void main(String[] args) {
         JFrame frame = new JFrame("OOAD UML Editor");
         frame.setContentPane(new MainForm().panel1);
