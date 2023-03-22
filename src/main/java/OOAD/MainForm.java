@@ -52,7 +52,7 @@ public class MainForm {
             }
         });
         groupMenuItem.addActionListener(new GroupMenuListener());
-        unGroupMenuItem.addActionListener(new UnGroupListener());
+        unGroupMenuItem.addActionListener(new UnGroupMenuListener());
         Utils.setMain(this);
     }
     public void setGroupEnable(Boolean bool){

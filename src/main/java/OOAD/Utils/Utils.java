@@ -32,11 +32,11 @@ public class Utils{
     public static Point minPoint(Point a, Point b){
         int x = Math.min(a.x,b.x);
         int y = Math.min(a.y,b.y);
-        return  (new Point(x,y));
+        return (new Point(x,y));
     };
     public static Point maxPoint(Point a, Point b){
         int x = Math.max(a.x,b.x);
         int y = Math.max(a.y,b.y);
-        return  (new Point(x,y));
+        return (new Point(x,y));
     }
 }

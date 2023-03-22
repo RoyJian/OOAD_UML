@@ -56,9 +56,12 @@ public class Canvas extends JPanel  {
     };
     public static void cleanSelectBag(){
         for (Component component:selectBag){
-            ((BasicObject) component).disableAllConnectionPort();
+            try{
+                ((BasicObject) component).disableAllConnectionPort();
+            } catch (ClassCastException ignore){}
         }
         selectBag.clear();
+
     }
 
 }
