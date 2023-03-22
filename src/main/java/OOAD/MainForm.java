@@ -1,5 +1,7 @@
 package OOAD;
 
+import OOAD.Utils.Utils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,6 +11,8 @@ public class MainForm {
     private JMenuBar menuBar1;
     private JMenu fileMenu;
     private JMenu editMenu;
+    private JMenuItem groupMenuItem;
+    private JMenuItem unGroupMenuItem;
     private JButton selectBtn;
     private JButton associationBtn;
     private JButton generalizationBtn;
@@ -20,25 +24,23 @@ public class MainForm {
 
     public MainForm() {
         mode = Mode.Select;
+        groupMenuItem = new JMenuItem("Group");
+        unGroupMenuItem = new JMenuItem("Ungroup");
+        editMenu.add(groupMenuItem);
+        editMenu.add(unGroupMenuItem);
         canvasArea.setLayout(null);
-        canvasArea.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                mode.canvasPerform(canvasArea, new Point(e.getX(), e.getY()));
-                canvasArea.repaint();
-            }
-        });
         classBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mode = Mode.CreateClass;
+                mode.buttonPerform();
             }
         });
         useCaseBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mode = Mode.CreateUseCase;
+                mode.buttonPerform();
             }
         });
 
@@ -46,10 +48,17 @@ public class MainForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mode = Mode.Select;
+                mode.buttonPerform();
             }
         });
+        groupMenuItem.addActionListener(new GroupMenuListener());
+        unGroupMenuItem.addActionListener(new UnGroupMenuListener());
+        Utils.setMain(this);
     }
-
+    public void setGroupEnable(Boolean bool){
+        groupMenuItem.setEnabled(bool);
+        unGroupMenuItem.setEnabled(bool);
+    }
     public static void main(String[] args) {
         JFrame frame = new JFrame("OOAD UML Editor");
         frame.setContentPane(new MainForm().panel1);
