@@ -96,10 +96,10 @@ abstract class BasicObject extends CanvasObject {
         int width = imageLabel.getWidth() + ConnectionPort.width;
         int height = imageLabel.getHeight() + ConnectionPort.height;
         g.setColor(connectionPortColor);
-        connectionPortTop = new ConnectionPort(g ,new Point(width / 2, 0));
-        connectionPortBottom = new ConnectionPort(g ,new Point(width / 2, height));
-        connectionPortLeft = new ConnectionPort(g ,new Point(0, height / 2));
-        connectionPortRight = new ConnectionPort(g ,new Point(width, height / 2));
+        connectionPortTop = new TopConnectionPort(g, new Dimension(width,height));
+        connectionPortBottom = new BottomConnectionPort(g, new Dimension(width,height));
+        connectionPortLeft = new LeftConnectionPort(g, new Dimension(width,height));
+        connectionPortRight = new RightConnectionPort(g, new Dimension(width,height));
     }
     @Override
     public void setSelect(Boolean bool){

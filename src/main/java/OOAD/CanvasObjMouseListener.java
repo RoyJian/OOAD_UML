@@ -18,7 +18,7 @@ abstract class CanvasObjMouseListener extends MouseAdapter implements MouseMotio
 
 }
 
-class CanvasObjModMouseListener extends CanvasObjMouseListener {
+class BasicObjModMouseListener extends CanvasObjMouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         passToCanvas(e);
@@ -58,5 +58,27 @@ class SelectModMouseAdapter extends CanvasObjMouseListener {
     }
 }
 class ConnectionModMouseAdapter extends CanvasObjMouseListener {
+    private Component enteredComponent = null;
+    @Override
+    public void mousePressed(MouseEvent e){
 
+        Utils.getCanvas().pressPoint = Utils.changeCoordinate(e.getLocationOnScreen());
+
+    }
+    @Override
+    public void mouseDragged(MouseEvent e){
+        Utils.getCanvas().draggedPoint = Utils.changeCoordinate(e.getLocationOnScreen());
+        Utils.getCanvas().repaint();
+    }
+    @Override
+    public void mouseReleased(MouseEvent e){
+        Utils.getCanvas().resetPressAndDraggedPoint();
+        Utils.getCanvas().repaint();
+    }
+    @Override
+    public void mouseEntered(MouseEvent e){
+        if (Utils.getCanvas().pressPoint.x > -1 ){
+            enteredComponent = e.getComponent();
+        }
+    }
 }

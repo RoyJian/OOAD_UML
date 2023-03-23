@@ -52,8 +52,32 @@ class Group extends CanvasObject{
     }
     @Override
     public void setListener(){
-        this.addMouseListener(MainForm.mode.canvasObjMouseListener);
-        this.addMouseMotionListener(MainForm.mode.canvasObjMouseListener);
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                MainForm.mode.canvasObjMouseListener.mousePressed(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                MainForm.mode.canvasObjMouseListener.mouseReleased(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                MainForm.mode.canvasObjMouseListener.mouseEntered(e);
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                MainForm.mode.canvasObjMouseListener.mouseExited(e);
+            }
+        });
+        this.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                MainForm.mode.canvasObjMouseListener.mouseDragged(e);
+            }
+        });
     }
 }
 class GroupMenuListener implements ActionListener {

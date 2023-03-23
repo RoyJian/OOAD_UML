@@ -39,7 +39,7 @@ class SelectModCanvasMouseListener extends CanvasMouseListener{
         }
         Utils.getMain().setGroupEnable(Canvas.selectBag.size() > 0);
         canvas.setSelectGroupSize(0,0);
-        canvas.pressPoint = null;
+        canvas.resetPressAndDraggedPoint();
         canvas.repaint();
     }
     @Override
@@ -62,5 +62,9 @@ class BasicObjModCanvasMouseListener extends CanvasMouseListener{
     }
 }
 class ConnectionLineModCanvasMouseListener extends CanvasMouseListener{
+    @Override
+    public void mouseDragged(MouseEvent e){
+
+    }
 
 }

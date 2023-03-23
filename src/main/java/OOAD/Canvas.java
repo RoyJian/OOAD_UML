@@ -7,14 +7,16 @@ import java.util.ArrayList;
 
 public class Canvas extends JPanel  {
     public static ArrayList<CanvasObject> selectBag;
+    public ArrayList<ConnectLine> connectLines;
     public Point pressPoint,draggedPoint;
     private int selectGroupWidth,selectGroupHeight;
     Canvas() {
         selectBag = new ArrayList<CanvasObject>();
+        connectLines = new ArrayList<ConnectLine>();
         selectGroupWidth = 0;
         selectGroupHeight = 0;
-        pressPoint = null;
-        draggedPoint = null;
+        pressPoint = new Point(0,0);
+        draggedPoint = new Point(0,0);
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e){
@@ -39,6 +41,10 @@ public class Canvas extends JPanel  {
             }
         });
 
+    }
+    public void resetPressAndDraggedPoint(){
+        pressPoint.setLocation(-1,-1);
+        draggedPoint.setLocation(-1,-1);
     }
     public void setSelectGroupSize(int width,int height){
         selectGroupWidth = width;

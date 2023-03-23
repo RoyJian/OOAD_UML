@@ -51,6 +51,13 @@ public class MainForm {
                 mode.buttonPerform();
             }
         });
+        associationBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mode = Mode.CreateAssociationLine;
+                mode.buttonPerform();
+            }
+        });
         groupMenuItem.addActionListener(new GroupMenuListener());
         unGroupMenuItem.addActionListener(new UnGroupMenuListener());
         Utils.setMain(this);
