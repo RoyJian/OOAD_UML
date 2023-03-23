@@ -1,6 +1,7 @@
 package OOAD.Utils;
 
 import OOAD.Canvas;
+import OOAD.CanvasObject;
 import OOAD.ConnectionPort;
 import OOAD.MainForm;
 
@@ -15,7 +16,8 @@ public class Utils{
     public static Canvas getCanvas(){
         return  main.canvasArea;
     }
-    public static Boolean isInSelectGroup(Component component){
+    public static Boolean verifyInGroup(CanvasObject component){
+        if (component.getIsGroup()) { return false; };
         Canvas canvas = getCanvas();
         Dimension GroupSize = canvas.getSelectGroupSize();
         int GroupStartX = Math.min(canvas.pressPoint.x,canvas.draggedPoint.x);

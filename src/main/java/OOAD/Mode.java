@@ -5,7 +5,7 @@ import OOAD.Utils.Utils;
 import java.awt.*;
 
 interface I_Mode{
-    Component generator(int depth, Point p);
+    Component generator(Point p);
     void paintCanvas(Canvas canvas, Graphics g);
 
 }
@@ -13,7 +13,7 @@ public enum Mode  implements I_Mode{
     Select(
             1,"select", new SelectModMouseAdapter(), new SelectModCanvasMouseListener()) {
         @Override
-        public Component generator(int depth, Point p) {
+        public Component generator(Point p) {
             return null;
         }
 
@@ -31,47 +31,45 @@ public enum Mode  implements I_Mode{
         }
         @Override
         public void buttonPerform(){
-            Utils.getMain().setGroupEnable(true);
+            Utils.getMain().setGroupEnable(false);
         }
     }, CreateAssociationLine(
             2,"AssociationLine", new ConnectionModMouseAdapter(), new ConnectionLineModCanvasMouseListener()) {
         @Override
-        public Component generator(int depth,Point p) {
+        public Component generator(Point p) {
             return null;
         }
     }, CreateGeneralizationLine(
             3,"GeneralizationLine", new ConnectionModMouseAdapter(), new ConnectionLineModCanvasMouseListener()) {
         @Override
-        public Component generator(int depth,Point p) {
+        public Component generator(Point p) {
             return null;
         }
     }, CreateCompositionLine(
             4,"CompositionLine", new ConnectionModMouseAdapter(), new ConnectionLineModCanvasMouseListener()) {
         @Override
-        public Component generator(int depth,Point p) {
+        public Component generator(Point p) {
             return null;
         }
     }, CreateClass(
-            5,"Class", new BasicObjModMouseListener(), new BasicObjModCanvasMouseListener()) {
+            5,"Class", new CanvasObjModMouseListener(), new BasicObjModCanvasMouseListener()) {
         @Override
-        public Component generator(int depth,Point p) {
-            return new ClassItem(depth,p);
+        public Component generator(Point p) {
+            return new ClassItem(p);
         }
     }, CreateUseCase(
-            6, "UseCase", new BasicObjModMouseListener(), new BasicObjModCanvasMouseListener()) {
+            6, "UseCase", new CanvasObjModMouseListener(), new BasicObjModCanvasMouseListener()) {
         @Override
-        public Component generator(int depth,Point p) {
-            return new UseCaseItem(depth, p);
+        public Component generator(Point p) {
+            return new UseCaseItem(p);
         }
     };
     public final String name;
     public final int id;
-    public final BasicObjMouseListener basicObjMouseListener;
+    public final CanvasObjMouseListener canvasObjMouseListener;
     public final CanvasMouseListener canvasMouseListener;
     public void addBasicObj(Canvas canvas, Point p){
-        int depth =  100 - canvas.paintList.size();
-        BasicObject basicObject = (BasicObject) generator(depth,p);
-        canvas.paintList.add(basicObject);
+        BasicObject basicObject = (BasicObject) generator(p);
         canvas.add(basicObject,0);
         canvas.repaint();
 
@@ -82,10 +80,10 @@ public enum Mode  implements I_Mode{
         Utils.getCanvas().repaint();
         Utils.getMain().setGroupEnable(false);
     };
-    Mode(int id, String name, BasicObjMouseListener basicObjMouseListener, CanvasMouseListener canvasMouseListener){
+    Mode(int id, String name, CanvasObjMouseListener canvasObjMouseListener, CanvasMouseListener canvasMouseListener){
         this.name = name;
         this.id = id;
-        this.basicObjMouseListener = basicObjMouseListener;
+        this.canvasObjMouseListener = canvasObjMouseListener;
         this.canvasMouseListener = canvasMouseListener;
     }
 }

@@ -6,13 +6,11 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class Canvas extends JPanel  {
-    public ArrayList <Component> paintList;
-    public static ArrayList<Component> selectBag;
+    public static ArrayList<CanvasObject> selectBag;
     public Point pressPoint,draggedPoint;
     private int selectGroupWidth,selectGroupHeight;
     Canvas() {
-        paintList = new  ArrayList<Component>();
-        selectBag = new ArrayList<Component>();
+        selectBag = new ArrayList<CanvasObject>();
         selectGroupWidth = 0;
         selectGroupHeight = 0;
         pressPoint = null;
@@ -55,11 +53,8 @@ public class Canvas extends JPanel  {
       MainForm.mode.paintCanvas(this, g);
     };
     public static void cleanSelectBag(){
-        for (Component component:selectBag){
-            try{
-                ((BasicObject) component).disableAllConnectionPort();
-            } catch (ClassCastException ignore){}
-        }
+        for (CanvasObject component: selectBag)
+            component.setSelect(false);
         selectBag.clear();
 
     }

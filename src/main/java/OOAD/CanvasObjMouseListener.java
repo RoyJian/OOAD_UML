@@ -8,51 +8,55 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
-abstract class BasicObjMouseListener extends MouseAdapter implements MouseMotionListener {
+abstract class CanvasObjMouseListener extends MouseAdapter implements MouseMotionListener {
     public void passToCanvas(MouseEvent e){
         Canvas canvas = Utils.getCanvas();
-        JLabel l = (JLabel)e.getComponent();
-        MouseEvent convertMouseEvent = SwingUtilities.convertMouseEvent(l, e, canvas);
+        Component component = e.getComponent();
+        MouseEvent convertMouseEvent = SwingUtilities.convertMouseEvent(component, e, canvas);
         canvas.dispatchEvent(convertMouseEvent);
     }
 
 }
 
-class BasicObjModMouseListener extends BasicObjMouseListener {
+class CanvasObjModMouseListener extends CanvasObjMouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         passToCanvas(e);
     }
 
 }
-class SelectModMouseAdapter extends BasicObjMouseListener {
+class SelectModMouseAdapter extends CanvasObjMouseListener {
     private Point lastPoint = null;
 
     @Override
     public void mousePressed(MouseEvent e) {
+        super.mouseDragged(e);
         lastPoint = e.getLocationOnScreen();
-        JLabel l = (JLabel)e.getComponent();
-        BasicObject item = (BasicObject) l.getParent();
+        Component component = e.getComponent();
+        CanvasObject item = (CanvasObject) component;
         Canvas.cleanSelectBag();
         Canvas canvas = Utils.getCanvas();
         Canvas.selectBag.add(item);
-        item.enableAllConnectionPort();
+        Utils.getMain().setGroupEnable(true);
+        item.setSelect(true);
         canvas.setComponentZOrder(item,0);
         canvas.repaint();
     }
 
     @Override
     public void mouseDragged(MouseEvent e){
+        super.mouseDragged(e);
+        CanvasObject component = (CanvasObject) e.getComponent();
         Point nowPoint = e.getLocationOnScreen();
         int offsetX = nowPoint.x - lastPoint.x;
         int offsetY = nowPoint.y - lastPoint.y;
-        BasicObject bo = (BasicObject)e.getComponent().getParent();
-        bo.setLocation(bo.getX() + offsetX,bo.getY() + offsetY);
+        Point p = new Point(component.getX() + offsetX, component.getY() + offsetY);
+        component.setLocation(p);
         Utils.getCanvas().repaint();
         lastPoint = nowPoint;
 
     }
 }
-class ConnectionModMouseAdapter extends BasicObjMouseListener {
+class ConnectionModMouseAdapter extends CanvasObjMouseListener {
 
 }
