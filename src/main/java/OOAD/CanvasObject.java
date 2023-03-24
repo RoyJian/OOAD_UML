@@ -3,6 +3,7 @@ package OOAD;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 interface  I_CanvasObject {
     void setSelect(Boolean bool);
@@ -104,6 +105,11 @@ abstract class BasicObject extends CanvasObject {
     @Override
     public void setSelect(Boolean bool){
         connectionPortColor = bool ?  Color.BLACK : new Color(0,0,0,0);
+    }
+    public ConnectionPort[] getConnectPorts(){
+        return new ConnectionPort[]{
+                connectionPortLeft, connectionPortRight, connectionPortTop, connectionPortBottom
+        };
     }
 }
 class ClassItem extends BasicObject{

@@ -3,17 +3,18 @@ package OOAD;
 import java.awt.*;
 
 interface I_ConnectLine {
-    void paint(Graphics g);
+    void paint(Graphics2D g2d);
 }
 
 abstract public class ConnectLine implements I_ConnectLine {
-    private BasicObject startObj;
-    private BasicObject endObj;
-    private ConnectionPort startConnPort;
-    private ConnectionPort endConnPort;
+    protected BasicObject startObj;
+    protected BasicObject endObj;
+    protected ConnectionPort startConnPort;
+    protected ConnectionPort endConnPort;
 
-    ConnectLine(BasicObject startObj, ConnectionPort port) {
-        setStartObj(startObj, port);
+    ConnectLine(BasicObject startObj, ConnectionPort startPort, BasicObject endObj, ConnectionPort endPort) {
+        setStartObj(startObj, startPort);
+        setEndObj(endObj, endPort);
     }
 
     public CanvasObject getStartObj() {
@@ -48,15 +49,15 @@ abstract public class ConnectLine implements I_ConnectLine {
 }
 
 class AssociationLine extends ConnectLine {
-    AssociationLine(BasicObject startObj, ConnectionPort port) {
-        super(startObj, port);
+    AssociationLine(BasicObject startObj, ConnectionPort startPort, BasicObject endObj, ConnectionPort endPort) {
+        super(startObj, startPort, endObj, endPort);
     }
 
     @Override
-    public void paint(Graphics g) {
-        Point startPoint = calcEndPoint();
+    public void paint(Graphics2D g2d) {
+        Point startPoint = clacStartPoint();
         Point endPoint = calcEndPoint();
-        g.setColor(Color.black);
-        g.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+        g2d.setColor(Color.black);
+        g2d.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
     }
 }

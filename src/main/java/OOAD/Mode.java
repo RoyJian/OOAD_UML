@@ -6,6 +6,7 @@ import java.awt.*;
 
 interface I_Mode {
     Component generator(Point p);
+    ConnectLine generator(BasicObject startObj, ConnectionPort startPort, BasicObject endObj, ConnectionPort endPort);
 
     void paintCanvas(Canvas canvas, Graphics g);
 
@@ -18,10 +19,13 @@ public enum Mode implements I_Mode {
         public Component generator(Point p) {
             return null;
         }
+        @Override
+        public ConnectLine generator(BasicObject startObj, ConnectionPort startPort, BasicObject endObj, ConnectionPort endPort) { return null; }
 
         @Override
         public void paintCanvas(Canvas canvas, Graphics g) {
             try {
+                paintConnectLine((Graphics2D) g);
                 Dimension size = canvas.getSelectGroupSize();
                 int x = Math.min(canvas.pressPoint.x, canvas.draggedPoint.x);
                 int y = Math.min(canvas.pressPoint.y, canvas.draggedPoint.y);
@@ -42,8 +46,13 @@ public enum Mode implements I_Mode {
         @Override
         public void paintCanvas(Canvas canvas, Graphics g) {
             try {
-                g.setColor(Color.black);
-                g.drawLine(canvas.pressPoint.x, canvas.pressPoint.y, canvas.draggedPoint.x, canvas.draggedPoint.y);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setStroke(new BasicStroke(2));
+                for (ConnectLine connectLine: canvas.connectLines){
+                    connectLine.paint(g2d);
+                }
+                g2d.setColor(Color.black);
+                g2d.drawLine(canvas.pressPoint.x, canvas.pressPoint.y, canvas.draggedPoint.x, canvas.draggedPoint.y);
             } catch (NullPointerException ignore) {
             }
         }
@@ -52,34 +61,34 @@ public enum Mode implements I_Mode {
         public Component generator(Point p) {
             return null;
         }
-
-        public AssociationLine generator(BasicObject basicObject) {
-            return new AssociationLine(basicObject, basicObject.connectionPortLeft);
+        @Override
+        public AssociationLine generator(BasicObject startObj, ConnectionPort startPort, BasicObject endObj, ConnectionPort endPort) {
+            return new AssociationLine(startObj, startPort, endObj, endPort);
         }
     }, CreateGeneralizationLine(
             3, "GeneralizationLine", new ConnectionModMouseAdapter(), new ConnectionLineModCanvasMouseListener()) {
         @Override
-        public Component generator(Point p) {
-            return null;
-        }
+        public Component generator(Point p) { return null; }
+        @Override
+        public ConnectLine generator(BasicObject startObj, ConnectionPort startPort, BasicObject endObj, ConnectionPort endPort) { return null; }
     }, CreateCompositionLine(
             4, "CompositionLine", new ConnectionModMouseAdapter(), new ConnectionLineModCanvasMouseListener()) {
         @Override
-        public Component generator(Point p) {
-            return null;
-        }
+        public Component generator(Point p) { return null; }
+        @Override
+        public ConnectLine generator(BasicObject startObj, ConnectionPort startPort, BasicObject endObj, ConnectionPort endPort) { return null; }
     }, CreateClass(
             5, "Class", new BasicObjModMouseListener(), new BasicObjModCanvasMouseListener()) {
         @Override
-        public Component generator(Point p) {
-            return new ClassItem(p);
-        }
+        public Component generator(Point p) { return new ClassItem(p); }
+        @Override
+        public ConnectLine generator(BasicObject startObj, ConnectionPort startPort, BasicObject endObj, ConnectionPort endPort) { return null; }
     }, CreateUseCase(
             6, "UseCase", new BasicObjModMouseListener(), new BasicObjModCanvasMouseListener()) {
         @Override
-        public Component generator(Point p) {
-            return new UseCaseItem(p);
-        }
+        public Component generator(Point p) { return new UseCaseItem(p); }
+        @Override
+        public ConnectLine generator(BasicObject startObj, ConnectionPort startPort, BasicObject endObj, ConnectionPort endPort) { return null; }
     };
     public final String name;
     public final int id;
@@ -94,6 +103,7 @@ public enum Mode implements I_Mode {
     }
 
     public void paintCanvas(Canvas canvas, Graphics g) {
+        paintConnectLine((Graphics2D) g);
     }
 
 
@@ -101,6 +111,12 @@ public enum Mode implements I_Mode {
         Canvas.cleanSelectBag();
         Utils.getCanvas().repaint();
         Utils.getMain().setGroupEnable(false);
+    }
+    public void paintConnectLine(Graphics2D g2d){
+        g2d.setStroke(new BasicStroke(2));
+        for (ConnectLine connectLine: Utils.getCanvas().connectLines){
+            connectLine.paint(g2d);
+        }
     }
 
 

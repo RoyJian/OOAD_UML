@@ -59,4 +59,17 @@ public class Utils {
         int y = absolutePoint.y - origin.y;
         return new Point(x, y);
     }
+
+    public static Point subPoint(Point a, Point b) {
+        return new Point(a.x - b.x, a.y - b.y);
+    }
+
+    public static Point addPoint(Point a, Point b) {
+        return new Point(a.x + b.x, a.y + b.y);
+    }
+
+    public static Point changeCoordinate(Component originComponent, Point point, Component targerComponent) {
+        Point d = subPoint(originComponent.getLocation(), targerComponent.getLocation());
+        return addPoint(d,point);
+    }
 }
