@@ -30,19 +30,16 @@ class SelectModCanvasMouseListener extends CanvasMouseListener{
     @Override
     public void mouseReleased(MouseEvent e){
         Canvas canvas = Utils.getCanvas();
-        Component[] components = canvas.getComponents();
-        Dimension size = canvas.getSelectGroupSize();
-        for (Component component : components) {
-            if (Utils.isInSelectGroup(component)) {
-                Canvas.selectBag.add(component);
-                try{
-                    BasicObject basicObject = (BasicObject) component;
-                    basicObject.enableAllConnectionPort();
-                }catch (ClassCastException ignore) {}
+        for (Component component : canvas.getComponents()) {
+            CanvasObject canvasObject = (CanvasObject) component;
+            if (Utils.verifyInGroup(canvasObject)) {
+                Canvas.selectBag.add(canvasObject);
+                canvasObject.setSelect(true);
             }
         }
+        Utils.getMain().setGroupEnable(Canvas.selectBag.size() > 0);
         canvas.setSelectGroupSize(0,0);
-        canvas.pressPoint = null;
+        canvas.resetPressAndDraggedPoint();
         canvas.repaint();
     }
     @Override
@@ -65,5 +62,9 @@ class BasicObjModCanvasMouseListener extends CanvasMouseListener{
     }
 }
 class ConnectionLineModCanvasMouseListener extends CanvasMouseListener{
+    @Override
+    public void mouseDragged(MouseEvent e){
+
+    }
 
 }

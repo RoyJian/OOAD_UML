@@ -51,6 +51,27 @@ public class MainForm {
                 mode.buttonPerform();
             }
         });
+        associationBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mode = Mode.CreateAssociationLine;
+                mode.buttonPerform();
+            }
+        });
+        generalizationBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mode = Mode.CreateGeneralizationLine;
+                mode.buttonPerform();
+            }
+        });
+        compositionBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mode = Mode.CreateCompositionLine;
+                mode.buttonPerform();
+            }
+        });
         groupMenuItem.addActionListener(new GroupMenuListener());
         unGroupMenuItem.addActionListener(new UnGroupMenuListener());
         Utils.setMain(this);
