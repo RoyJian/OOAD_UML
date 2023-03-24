@@ -63,7 +63,6 @@ class ConnectionModMouseAdapter extends CanvasObjMouseListener {
     private BasicObject pressComponent = null;
     private ConnectionPort pressConnectionPort = null;
     private BasicObject enteredComponent = null;
-    private ConnectionPort enteredConnectionPort = null;
     public ConnectionPort calcNearestConnPort(Point p, BasicObject basicObject) {
         ConnectionPort nearestConnectionPort = null;
         double minDistance = Double.MAX_VALUE;

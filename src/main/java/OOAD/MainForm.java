@@ -58,6 +58,13 @@ public class MainForm {
                 mode.buttonPerform();
             }
         });
+        generalizationBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mode = Mode.CreateGeneralizationLine;
+                mode.buttonPerform();
+            }
+        });
         groupMenuItem.addActionListener(new GroupMenuListener());
         unGroupMenuItem.addActionListener(new UnGroupMenuListener());
         Utils.setMain(this);
