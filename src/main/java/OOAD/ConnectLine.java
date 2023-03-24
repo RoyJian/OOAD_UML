@@ -46,6 +46,34 @@ abstract public class ConnectLine implements I_ConnectLine {
         int y = endObj.getY() + endConnPort.getLinePosition().y;
         return new Point(x, y);
     }
+
+    public void drawLine(Graphics2D g2d) {
+        Point startPoint = clacStartPoint();
+        Point endPoint = calcEndPoint();
+        g2d.setColor(Color.black);
+        g2d.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+    }
+
+    public int[][] calcPoints() {
+        Point startPoint = clacStartPoint();
+        Point endPoint = calcEndPoint();
+        int d = 20;
+        int h = 10;
+        int dx = endPoint.x - startPoint.x, dy = endPoint.y - startPoint.y;
+        double D = Math.sqrt(dx * dx + dy * dy);
+        double xm = D - d, xn = xm, ym = h, yn = -h, x;
+        double sin = dy / D, cos = dx / D;
+        x = xm * cos - ym * sin + startPoint.x;
+        ym = xm * sin + ym * cos + startPoint.y;
+        xm = x;
+
+        x = xn * cos - yn * sin + startPoint.x;
+        yn = xn * sin + yn * cos + startPoint.y;
+        xn = x;
+        int[] xPoints = {endPoint.x, (int) xm, (int) xn};
+        int[] yPoints = {endPoint.y, (int) ym, (int) yn};
+        return new int[][]{xPoints, yPoints};
+    }
 }
 
 class AssociationLine extends ConnectLine {
@@ -55,12 +83,15 @@ class AssociationLine extends ConnectLine {
 
     @Override
     public void paint(Graphics2D g2d) {
-        Point startPoint = clacStartPoint();
-        Point endPoint = calcEndPoint();
-        g2d.setColor(Color.black);
-        g2d.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+        drawLine(g2d);
+        int[][] points = calcPoints();
+        g2d.setColor(Color.BLACK);
+        g2d.drawLine(points[0][0], points[1][0], points[0][1], points[1][1]);
+        g2d.drawLine(points[0][0], points[1][0], points[0][2], points[1][2]);
+
     }
 }
+
 class GeneralizationLine extends ConnectLine {
     GeneralizationLine(BasicObject startObj, ConnectionPort startPort, BasicObject endObj, ConnectionPort endPort) {
         super(startObj, startPort, endObj, endPort);
@@ -68,29 +99,11 @@ class GeneralizationLine extends ConnectLine {
 
     @Override
     public void paint(Graphics2D g2d) {
-        Point startPoint = clacStartPoint();
-        Point endPoint = calcEndPoint();
-        g2d.setColor(Color.black);
-        g2d.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
-        int d = 10;
-        int h = 10;
-        int dx = endPoint.x - startPoint.x, dy = endPoint.y - startPoint.y;
-        double D = Math.sqrt(dx*dx + dy*dy);
-        double xm = D - d, xn = xm, ym = h, yn = -h, x;
-        double sin = dy / D, cos = dx / D;
-        x = xm*cos - ym*sin + startPoint.x;
-        ym = xm*sin + ym*cos + startPoint.y;
-        xm = x;
-
-        x = xn*cos - yn*sin + startPoint.x;
-        yn = xn*sin + yn*cos + startPoint.y;
-        xn = x;
-
-        int[] xpoints = {endPoint.x, (int) xm, (int) xn};
-        int[] ypoints = {endPoint.y, (int) ym, (int) yn};
+        drawLine(g2d);
+        int[][] points = calcPoints();
         g2d.setColor(Color.WHITE);
-        g2d.fillPolygon(xpoints, ypoints, 3);
+        g2d.fillPolygon(points[0], points[1], 3);
         g2d.setColor(Color.BLACK);
-        g2d.drawPolygon(xpoints, ypoints, 3);
+        g2d.drawPolygon(points[0], points[1], 3);
     }
 }
