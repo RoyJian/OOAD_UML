@@ -40,11 +40,6 @@ public enum Mode implements I_Mode {
             } catch (NullPointerException ignore) {
             }
         }
-
-        @Override
-        public void buttonPerform() {
-            Utils.getMain().setGroupEnable(false);
-        }
     }, CreateAssociationLine(
             2, "AssociationLine", new ConnectionModMouseAdapter(), new ConnectionLineModCanvasMouseListener()) {
         @Override
@@ -154,6 +149,7 @@ public enum Mode implements I_Mode {
         Canvas.cleanSelectBag();
         Utils.getCanvas().repaint();
         Utils.getMain().setGroupEnable(false);
+        Utils.getMain().setChangeNameMenuEnable(false);
     }
 
     public void paintConnectLine(Graphics2D g2d) {

@@ -39,6 +39,7 @@ class SelectModMouseAdapter extends CanvasObjMouseListener {
         Canvas canvas = Utils.getCanvas();
         Canvas.selectBag.add(item);
         Utils.getMain().setGroupEnable(true);
+        Utils.getMain().setChangeNameMenuEnable(true);
         item.setSelect(true);
         canvas.setComponentZOrder(item, 0);
         canvas.repaint();
