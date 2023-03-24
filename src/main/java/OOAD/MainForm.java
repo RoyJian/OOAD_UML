@@ -65,6 +65,13 @@ public class MainForm {
                 mode.buttonPerform();
             }
         });
+        compositionBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mode = Mode.CreateCompositionLine;
+                mode.buttonPerform();
+            }
+        });
         groupMenuItem.addActionListener(new GroupMenuListener());
         unGroupMenuItem.addActionListener(new UnGroupMenuListener());
         Utils.setMain(this);

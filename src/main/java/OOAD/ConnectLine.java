@@ -1,6 +1,7 @@
 package OOAD;
 
 import java.awt.*;
+import java.util.Arrays;
 
 interface I_ConnectLine {
     void paint(Graphics2D g2d);
@@ -47,21 +48,14 @@ abstract public class ConnectLine implements I_ConnectLine {
         return new Point(x, y);
     }
 
-    public void drawLine(Graphics2D g2d) {
-        Point startPoint = clacStartPoint();
-        Point endPoint = calcEndPoint();
-        g2d.setColor(Color.black);
-        g2d.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
-    }
-
     public int[][] calcPoints() {
         Point startPoint = clacStartPoint();
         Point endPoint = calcEndPoint();
-        int d = 20;
+        int d = 10;
         int h = 10;
         int dx = endPoint.x - startPoint.x, dy = endPoint.y - startPoint.y;
         double D = Math.sqrt(dx * dx + dy * dy);
-        double xm = D - d, xn = xm, ym = h, yn = -h, x;
+        double xm = D - d, xn = xm, xo, ym = h, yn = -h, yo, x;
         double sin = dy / D, cos = dx / D;
         x = xm * cos - ym * sin + startPoint.x;
         ym = xm * sin + ym * cos + startPoint.y;
@@ -70,9 +64,22 @@ abstract public class ConnectLine implements I_ConnectLine {
         x = xn * cos - yn * sin + startPoint.x;
         yn = xn * sin + yn * cos + startPoint.y;
         xn = x;
-        int[] xPoints = {endPoint.x, (int) xm, (int) xn};
-        int[] yPoints = {endPoint.y, (int) ym, (int) yn};
+
+        xo = -(2 * d) * (dx / D) + endPoint.x;
+        yo = -(2 * d) * (dy / D) + endPoint.y;
+
+        int[] xPoints = {(int) xm, endPoint.x, (int) xn, (int) xo};
+        int[] yPoints = {(int) ym, endPoint.y, (int) yn, (int) yo};
+
         return new int[][]{xPoints, yPoints};
+    }
+
+    @Override
+    public void paint(Graphics2D g2d) {
+        Point startPoint = clacStartPoint();
+        Point endPoint = calcEndPoint();
+        g2d.setColor(Color.black);
+        g2d.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
     }
 }
 
@@ -83,11 +90,11 @@ class AssociationLine extends ConnectLine {
 
     @Override
     public void paint(Graphics2D g2d) {
-        drawLine(g2d);
+        super.paint(g2d);
         int[][] points = calcPoints();
         g2d.setColor(Color.BLACK);
         g2d.drawLine(points[0][0], points[1][0], points[0][1], points[1][1]);
-        g2d.drawLine(points[0][0], points[1][0], points[0][2], points[1][2]);
+        g2d.drawLine(points[0][2], points[1][2], points[0][1], points[1][1]);
 
     }
 }
@@ -99,11 +106,31 @@ class GeneralizationLine extends ConnectLine {
 
     @Override
     public void paint(Graphics2D g2d) {
-        drawLine(g2d);
+        super.paint(g2d);
+        int[][] points = calcPoints();
+        int nPoints = 3;
+        g2d.setColor(Color.WHITE);
+        int[] xPoints = Arrays.copyOfRange(points[0], 0, nPoints);
+        int[] yPoints = Arrays.copyOfRange(points[1], 0, nPoints);
+        g2d.fillPolygon(xPoints, yPoints, nPoints);
+        g2d.setColor(Color.BLACK);
+        g2d.drawPolygon(xPoints, yPoints, nPoints);
+    }
+}
+
+class CompositionLine extends ConnectLine {
+    CompositionLine(BasicObject startObj, ConnectionPort startPort, BasicObject endObj, ConnectionPort endPort) {
+        super(startObj, startPort, endObj, endPort);
+    }
+
+    @Override
+    public void paint(Graphics2D g2d) {
+        super.paint(g2d);
         int[][] points = calcPoints();
         g2d.setColor(Color.WHITE);
-        g2d.fillPolygon(points[0], points[1], 3);
+        g2d.fillPolygon(points[0], points[1], 4);
         g2d.setColor(Color.BLACK);
-        g2d.drawPolygon(points[0], points[1], 3);
+        g2d.drawPolygon(points[0], points[1], 4);
+
     }
 }
