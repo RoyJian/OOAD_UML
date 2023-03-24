@@ -21,6 +21,8 @@ class SelectModCanvasMouseListener extends CanvasMouseListener{
     }
     @Override
     public void mousePressed(MouseEvent e) {
+        Utils.getMain().setGroupEnable(false);
+        Utils.getMain().setChangeNameMenuEnable(false);
         super.mousePressed(e);
         Canvas canvas = Utils.getCanvas();
         Canvas.cleanSelectBag();

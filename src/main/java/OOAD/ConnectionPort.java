@@ -9,7 +9,6 @@ interface I_ConnectionPort {
 public abstract class ConnectionPort implements I_ConnectionPort {
     public static final int width = 20;
     public static final int height = 20;
-    private Point connectLinePoint;
     protected Point p;
     ConnectionPort(Graphics g, Point p) {
         setPoint(p);

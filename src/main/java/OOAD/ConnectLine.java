@@ -109,9 +109,9 @@ class GeneralizationLine extends ConnectLine {
         super.paint(g2d);
         int[][] points = calcPoints();
         int nPoints = 3;
-        g2d.setColor(Color.WHITE);
         int[] xPoints = Arrays.copyOfRange(points[0], 0, nPoints);
         int[] yPoints = Arrays.copyOfRange(points[1], 0, nPoints);
+        g2d.setColor(Color.WHITE);
         g2d.fillPolygon(xPoints, yPoints, nPoints);
         g2d.setColor(Color.BLACK);
         g2d.drawPolygon(xPoints, yPoints, nPoints);
