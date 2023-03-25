@@ -20,7 +20,7 @@ public class MainForm {
     private JButton compositionBtn;
     private JButton classBtn;
     private JButton useCaseBtn;
-    public  Canvas canvasArea;
+    public Canvas canvasArea;
     public static Mode mode;
 
     public MainForm() {
@@ -82,13 +82,16 @@ public class MainForm {
         setChangeNameMenuEnable(false);
         Utils.setMain(this);
     }
-    public void setGroupEnable(Boolean bool){
+
+    public void setGroupEnable(Boolean bool) {
         groupMenuItem.setEnabled(bool);
         unGroupMenuItem.setEnabled(bool);
     }
-    public void setChangeNameMenuEnable(Boolean bool){
+
+    public void setChangeNameMenuEnable(Boolean bool) {
         changeNameMenuItem.setEnabled(bool);
     }
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("OOAD UML Editor");
         frame.setContentPane(new MainForm().panel1);
@@ -97,4 +100,5 @@ public class MainForm {
         frame.pack();
         frame.setVisible(true);
     }
+
 }
