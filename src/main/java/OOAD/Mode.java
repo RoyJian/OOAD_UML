@@ -147,6 +147,7 @@ public enum Mode implements I_Mode {
 
     public void buttonPerform() {
         Canvas.cleanSelectBag();
+        Utils.getCanvas().resetPressAndDraggedPoint();
         Utils.getCanvas().repaint();
         Utils.getMain().setGroupEnable(false);
         Utils.getMain().setChangeNameMenuEnable(false);
