@@ -2,16 +2,17 @@ package OOAD;
 
 import OOAD.Utils.Utils;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 
 interface I_CanvasObject {
     void setSelect(Boolean bool);
-
-    void paint(Graphics g);
-
     void setListener();
 
 }
@@ -42,7 +43,7 @@ abstract class BasicObject extends CanvasObject {
     protected ConnectionPort connectionPortTop, connectionPortBottom, connectionPortLeft, connectionPortRight;
     protected Color connectionPortColor;
 
-    BasicObject(Point p, String imagePath) {
+    BasicObject(Point p, String imagePath, String typeName) {
         super(p);
         this.imagePath = imagePath;
         this.connectionPortColor = new Color(0, 0, 0, 0);
@@ -96,11 +97,18 @@ abstract class BasicObject extends CanvasObject {
     }
 
     public void initImageLabel() {
-        this.imageLabel = new JLabel();
-        ImageIcon imageIcon = new ImageIcon(imagePath);
+        InputStream stream = MainForm.class.getClassLoader().getResourceAsStream(imagePath);
+        BufferedImage image;
+        try {
+            image = ImageIO.read(Objects.requireNonNull(stream));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        ImageIcon imageIcon = new ImageIcon(image);
         setSize(imageIcon.getIconWidth() + ConnectionPort.width * 2,
                 imageIcon.getIconHeight() + ConnectionPort.height * 2);
         setLocation(startPoint.x - ConnectionPort.width, startPoint.y - ConnectionPort.height);
+        imageLabel = new JLabel();
         imageLabel.setIcon(imageIcon);
         imageLabel.setLocation(ConnectionPort.width, ConnectionPort.height);
         imageLabel.setSize(new Dimension(imageIcon.getIconWidth(), imageIcon.getIconHeight()));
@@ -142,32 +150,22 @@ abstract class BasicObject extends CanvasObject {
 
 
     public void initNameLabel(String name) {
-        nameLabel = new JLabel(name,JLabel.CENTER);
+        nameLabel = new JLabel(name, JLabel.CENTER);
         nameLabel.setSize(imageLabel.getWidth(), imageLabel.getHeight());
         nameLabel.setLocation(imageLabel.getLocation());
-        add(nameLabel,0);
+        add(nameLabel, 0);
     }
 }
 
 class ClassItem extends BasicObject {
     ClassItem(Point p) {
-        super(p, "src/main/resources/ClassItem.png");
-    }
-
-    @Override
-    public void initNameLabel(String name) {
-        super.initNameLabel(name);
-
+        super(p, "ClassItem.png","Class");
     }
 
 }
 
 class UseCaseItem extends BasicObject {
     UseCaseItem(Point p) {
-        super(p, "src/main/resources/UseCaseItem.png");
-    }
-    @Override
-    public void initNameLabel(String name) {
-        super.initNameLabel(name);
+        super(p, "UseCaseItem.png", "Use Case");
     }
 }
