@@ -13,9 +13,6 @@ import java.util.Objects;
 
 interface I_CanvasObject {
     void setSelect(Boolean bool);
-
-    void paint(Graphics g);
-
     void setListener();
 
 }
@@ -46,7 +43,7 @@ abstract class BasicObject extends CanvasObject {
     protected ConnectionPort connectionPortTop, connectionPortBottom, connectionPortLeft, connectionPortRight;
     protected Color connectionPortColor;
 
-    BasicObject(Point p, String imagePath) {
+    BasicObject(Point p, String imagePath, String typeName) {
         super(p);
         this.imagePath = imagePath;
         this.connectionPortColor = new Color(0, 0, 0, 0);
@@ -162,24 +159,13 @@ abstract class BasicObject extends CanvasObject {
 
 class ClassItem extends BasicObject {
     ClassItem(Point p) {
-        super(p, "ClassItem.png");
-    }
-
-    @Override
-    public void initNameLabel(String name) {
-        super.initNameLabel(name);
-
+        super(p, "ClassItem.png","Class");
     }
 
 }
 
 class UseCaseItem extends BasicObject {
     UseCaseItem(Point p) {
-        super(p, "UseCaseItem.png");
-    }
-
-    @Override
-    public void initNameLabel(String name) {
-        super.initNameLabel(name);
+        super(p, "UseCaseItem.png", "Use Case");
     }
 }
